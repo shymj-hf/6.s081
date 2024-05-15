@@ -23,6 +23,18 @@ struct {
   struct run *freelist;
 } kmem;
 
+//获取空闲内存，通过遍历空闲内存链表
+uint64
+get_free_memory(){
+  uint64 n=0;
+  struct run* r = kmem.freelist;
+  while(r){
+    r=r->next;
+    n += PGSIZE;
+  }
+  return n;
+}
+
 void
 kinit()
 {
